@@ -10,6 +10,7 @@ import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 
 // Internal
+import config from './config';
 import api_response_error from './response/api_error_response';
 import api_response from './response/api_response';
 import logger from './utils/logger';
@@ -21,13 +22,13 @@ import routes from './routes';
 const app = express();
 
 const corsOptions = {
-  origin: process.env.BASE_URL || 'http://localhost:8000',
+  origin: '*',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 // Express configuration
 app.use(cors(corsOptions));
-app.set('port', process.env.PORT || 3000);
+app.set('port', config.server.port);
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -57,17 +58,18 @@ async function main() {
   try {
     await createConnection({
       type: 'mongodb',
-      host: '127.0.0.1',
-      port: 27017,
-      username: 'admin',
-      password: '',
-      database: 'interview-v5',
+      host: config.db.host,
+      port: config.db.port,
+      username: config.db.username,
+      password: config.db.password,
+      database: config.db.database,
       entities: [__dirname + '/entity/*.js'],
       synchronize: true,
       logging: false,
       useNewUrlParser: true,
       validateOptions: { useUnifiedTopology: true },
-    }).then(c => c.dropDatabase());
+    });
+    // .then(c => c.dropDatabase());
 
     // ---------- SERVER ----------
     app.listen(app.get('port'), () => {
