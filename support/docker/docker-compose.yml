@@ -5,7 +5,7 @@ services:
     image: mongo:latest
     ports:
       - '27017:27017'
-    command: mongod --bind_ip 0.0.0.0 --smallfiles
+    command: mongod --bind_ip 0.0.0.0
 
   server:
     container_name: interview_api
@@ -18,10 +18,11 @@ services:
       - ../../.env
     environment:
       - NODE_ENV=production
-    ports:
-      - '3000:3000'
     networks:
       - default
+      - web
+    links:
+      - db
     labels:
       - 'traefik.docker.network=web'
       - 'traefik.enable=true'
@@ -29,3 +30,7 @@ services:
       - 'traefik.basic.frontend.rule=Host:api.winnersnevers.top'
       - 'traefik.basic.port=3000'
       - 'traefik.basic.protocol=http'
+
+networks:
+  web:
+    external: true
