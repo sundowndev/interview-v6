@@ -1,5 +1,7 @@
 # interview-v6
 
+[![Build Status](https://travis-ci.org/sundowndev/interview-v6.svg?branch=master)](https://travis-ci.org/sundowndev/interview-v6)
+
 ### Objectif
 
 Implémenter et déployer une API REST qui justifie un texte passé en paramètre.
@@ -10,7 +12,7 @@ Implémenter et déployer une API REST qui justifie un texte passé en paramètr
 
 - [x] L’endpoint doit être de la forme /api/justify et doit retourner un texte justifié suite à une requête POST avec un body de `Content-Type: text/plain`.
 
-- [ ] L’api doit utiliser un mécanisme d’authentification via token unique. En utilisant par exemple une endpoint api/token qui retourne un token d’une requête POST avec un json body `{"email": "foo@bar.com"}`.
+- [x] L’api doit utiliser un mécanisme d’authentification via token unique. En utilisant par exemple une endpoint api/token qui retourne un token d’une requête POST avec un json body `{"email": "foo@bar.com"}`.
 
 - [x] Il doit y avoir un rate limit par token pour l’endpoint /api/justify, fixé à 80 000 mots par jour, si il y en a plus dans la journée il faut alors renvoyer une erreur 402 Payment Required.
 
@@ -24,4 +26,4 @@ Implémenter et déployer une API REST qui justifie un texte passé en paramètr
 
 - [ ] Les tests, le coverage
 
-- [ ] La lisibilité
+- [x] La lisibilité
