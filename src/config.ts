@@ -1,6 +1,6 @@
 export default {
   server: {
-    url: process.env.BASE_URL || 'http://localhost',
+    url: process.env.HOST || 'http://localhost',
     port: process.env.PORT || 3000,
   },
   secret: process.env.SECRET || 'interviewv6',
@@ -9,6 +9,6 @@ export default {
     port: parseInt(process.env.DB_PORT || '27017', 1),
     username: process.env.DB_USER || 'admin',
     password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'interview-v5',
+    database: process.env.DB_DATABASE || 'interview-v6',
   },
 };
