@@ -12,7 +12,7 @@ services:
     restart: on-failure
     image: node:8
     build:
-      context: ../../src
+      context: ../../
       dockerfile: ./Dockerfile
     env_file:
       - ../../.env
@@ -22,7 +22,6 @@ services:
       - '3000:3000'
     networks:
       - default
-    command: ['npm', run', 'serve']
     labels:
       - 'traefik.docker.network=web'
       - 'traefik.enable=true'
