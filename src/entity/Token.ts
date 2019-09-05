@@ -1,7 +1,11 @@
 import { IsDate, IsNumber, IsString } from 'class-validator';
-import { Column } from 'typeorm';
+import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 
+@Entity()
 export class Token {
+  @ObjectIdColumn()
+  public id!: ObjectID;
+
   @Column()
   @IsString()
   public email!: string;
