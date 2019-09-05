@@ -8,7 +8,7 @@ Implémenter et déployer une API REST qui justifie un texte passé en paramètr
 
 ### Contraintes
 
-- [ ] La longueur des lignes du texte justifié doit être de 80 caractères.
+- [x] La longueur des lignes du texte justifié doit être de 80 caractères.
 
 - [x] L’endpoint doit être de la forme /api/justify et doit retourner un texte justifié suite à une requête POST avec un body de `Content-Type: text/plain`.
 
@@ -24,6 +24,6 @@ Implémenter et déployer une API REST qui justifie un texte passé en paramètr
 
 ### Bonus
 
-- [ ] Les tests, le coverage
+- [x] Les tests, le coverage
 
 - [x] La lisibilité
