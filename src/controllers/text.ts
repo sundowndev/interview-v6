@@ -9,11 +9,12 @@ import { countWords, justify } from '../utils/text';
  */
 export const postJustify = async (req: Request, _: Response, next: any) => {
   try {
-    const justifiedText = justify(req.body.text);
+    const justifiedText = justify(req.body.text, 80);
     const newQuota = req.app.locals.token.quota - countWords(justifiedText);
 
     const manager = getMongoManager();
 
+    req.app.locals.token.updateDate();
     req.app.locals.token.quota = newQuota;
 
     await manager.save(req.app.locals.token);

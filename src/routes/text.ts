@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import * as controller from '../controllers/text';
 import { verifyToken } from '../controllers/token';
-import validationMiddleware from '../middlewares/validation';
+import VALIDATION_MIDDLEWARE from '../middlewares/validation';
 import * as validators from '../validators/text';
 
 const router: Router = express.Router();
@@ -21,7 +21,7 @@ router
   .post(
     validators.postJustify,
     verifyToken,
-    validationMiddleware,
+    VALIDATION_MIDDLEWARE,
     controller.postJustify,
   );
 
