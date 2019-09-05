@@ -23,8 +23,9 @@
     /* Module Resolution Options */
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "build"],
-  "baseUrl": ".",
+  "baseUrl": "."
 }
