@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 
 export default function(req: Request, res: Response, next: any) {
-  if (req.app.locals.plain) {
-    res.set('Content-Type', 'text/plain; charset=utf-8');
-    res.status(req.app.locals.status || 200);
-    res.send(req.app.locals.return);
-    return next();
-  }
-
   if (!res.finished) {
+    if (req.app.locals.plain) {
+      res.set('Content-Type', 'text/plain; charset=utf-8');
+      res.status(req.app.locals.status || 200);
+      res.send(req.app.locals.return);
+      return next();
+    }
+
     res.set('Content-Type', 'application/json; charset=utf-8');
 
     if (!req.route) {
@@ -17,14 +17,10 @@ export default function(req: Request, res: Response, next: any) {
       return next();
     }
 
-    let json: any = { success: true };
+    const json: any = { success: true };
 
     if (req.app.locals.results) {
       json.results = req.app.locals.results;
-    }
-
-    if (req.app.locals.opts_return) {
-      json = Object.assign(json, req.app.locals.opts_return);
     }
 
     if (req.app.locals.return) {
@@ -40,9 +36,7 @@ export default function(req: Request, res: Response, next: any) {
   }
 
   // Clear response locals
-  ['status', 'return', 'results', 'opts_return'].forEach(
-    k => delete req.app.locals[k],
-  );
+  ['status', 'return', 'plain'].forEach(k => delete req.app.locals[k]);
 
   return next();
 }
