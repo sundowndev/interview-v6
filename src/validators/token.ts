@@ -10,3 +10,14 @@ export const postToken = [
     .isEmail()
     .withMessage('INVALID_EMAIL'),
 ];
+
+export const postStatus = [
+  body('token')
+    .exists()
+    .withMessage('MISSING')
+    .not()
+    .isEmpty()
+    .withMessage('IS_EMPTY')
+    .matches(/[\w]/)
+    .withMessage('INVALID_TOKEN'),
+];

@@ -1,4 +1,5 @@
 export default {
+  dailyQuota: 80000,
   server: {
     url: process.env.HOST || 'http://localhost',
     port: process.env.PORT || 3000,

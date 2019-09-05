@@ -7,7 +7,7 @@ import { generateToken } from '../utils/token';
 
 /**
  * POST /api/token
- * Get a token.
+ * Create token.
  */
 export const postAuth = async (req: Request, _: Response, next: any) => {
   try {
@@ -38,7 +38,11 @@ export const postAuth = async (req: Request, _: Response, next: any) => {
   }
 };
 
-export const verifyToken = async (req: Request, _: Response, next: any) => {
+/**
+ * POST /api/token/status
+ * Get token status.
+ */
+export const postStatus = async (req: Request, _: Response, next: any) => {
   try {
     let targetToken;
 
@@ -51,6 +55,44 @@ export const verifyToken = async (req: Request, _: Response, next: any) => {
 
     if (!targetToken) {
       return next(msg.tokenNotFound());
+    }
+
+    targetToken.email = targetToken.email.replace(/(?!^[\w])[\w](?![\w]$)/g, '*');
+
+    req.app.locals.return = targetToken;
+
+    return next();
+  } catch (e) {
+    return next(msg.errorApi(e));
+  }
+};
+
+/**
+ * Verify token exists and quota hasn't been reached (helper).
+ */
+export const verifyToken = async (req: Request, _: Response, next: any) => {
+  try {
+    let targetToken;
+    const manager = getMongoManager();
+
+    // Check if token already exists
+    targetToken = req.app.locals.token = await getMongoRepository(
+      Token,
+    ).findOne({
+      token: req.body.token,
+    });
+
+    if (!targetToken) {
+      return next(msg.tokenNotFound());
+    }
+
+    // If the last usage was more than 24h ago, reset quota limit
+    if (
+      new Date(targetToken.dateUpdated).getTime() <
+      new Date(new Date().getTime() - 864e5).getTime()
+    ) {
+      targetToken.resetUsage();
+      await manager.save(targetToken);
     }
 
     // Check if quota has been reached

@@ -1,5 +1,6 @@
 import { IsDate, IsNumber, IsString } from 'class-validator';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import config from '../config';
 
 @Entity()
 export class Token {
@@ -27,8 +28,16 @@ export class Token {
   public dateUpdated: Date;
 
   constructor() {
-    this.quota = 80000;
+    this.quota = config.dailyQuota;
     this.dateCreated = new Date();
     this.dateUpdated = new Date();
+  }
+
+  public updateDate() {
+    this.dateUpdated = new Date();
+  }
+
+  public resetUsage() {
+    this.quota = config.dailyQuota;
   }
 }
