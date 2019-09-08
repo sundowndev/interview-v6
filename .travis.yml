@@ -2,8 +2,8 @@ language: node_js
 dist: trusty
 os: linux
 
-# services:
-#   - docker
+services:
+  - docker
 
 node_js:
   - '8'
@@ -29,6 +29,8 @@ jobs:
 
     - stage: test
       script:
-        - npm install codecov -g
+        - cp support/.env.example .env
+        - docker-compose -f ./support/docker/docker-compose.test.yml up -d --build
         - npm run test
+        - npm i -g codecov
         - codecov -f coverage/*.json

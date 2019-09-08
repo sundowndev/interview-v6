@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3'
 
 services:
   db:
@@ -6,3 +6,19 @@ services:
     ports:
       - '27017:27017'
     command: mongod --bind_ip 0.0.0.0
+
+  server:
+    container_name: interview_api
+    restart: on-failure
+    image: node:8
+    build:
+      context: ../../
+      dockerfile: ./Dockerfile
+    env_file:
+      - ../../.env
+    environment:
+      - NODE_ENV=test
+    links:
+      - db
+    ports:
+      - 3000:3000
