@@ -1,6 +1,6 @@
 # interview-v6
 
-[![Build Status](https://travis-ci.org/sundowndev/interview-v6.svg?branch=master)](https://travis-ci.org/sundowndev/interview-v6)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fsundowndev%2Finterview-v6%2Fbadge&style=flat)](https://actions-badge.atrox.dev/sundowndev/interview-v6/goto)
 
 ### Objectif
 
