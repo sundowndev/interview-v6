@@ -16,7 +16,7 @@ Implémenter et déployer une API REST qui justifie un texte passé en paramètr
 
 - [x] Il doit y avoir un rate limit par token pour l’endpoint /api/justify, fixé à 80 000 mots par jour, si il y en a plus dans la journée il faut alors renvoyer une erreur 402 Payment Required.
 
-- [ ] Le code doit être déployé sur un url ou une ip public
+- [x] Le code doit être déployé sur un url ou une ip public
 
 - Le code doit être rendu sur github
 - Langage : Nodejs
